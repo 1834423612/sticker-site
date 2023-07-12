@@ -1,0 +1,112 @@
+[{
+    "test1": {
+        "title": "test title 1",
+        "raw": "https://test.us.kjchmc.cn/images/1.png",
+        "post": [
+            {
+                "id": 1,
+                "name": "阿克苏",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            },
+            {
+                "id": 2,
+                "name": "阿拉善盟",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            },
+            {
+                "id": 3,
+                "name": "阿勒泰",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            }
+        ]
+    },
+    "test2": {
+        "title": "test title 2",
+        "raw": "https://test.us.kjchmc.cn/images/2.png",
+        "post": [
+            {
+                "id": 1,
+                "name": "北京",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            },
+            {
+                "id": 2,
+                "name": "白城",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            },
+            {
+                "id": 3,
+                "name": "白色",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            }
+        ]
+    },
+    "test3": {
+        "title": "test title 3",
+        "raw": "https://test.us.kjchmc.cn/images/3.png",
+        "post": [
+            {
+                "id": 1,
+                "name": "重庆",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            },
+            {
+                "id": 2,
+                "name": "长春",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            },
+            {
+                "id": 3,
+                "name": "长沙",
+                "link": "https://api.kjchmc.cn/ipqianming"
+            }
+        ]
+    },
+    "test4": {
+        "title": "test title 4",
+        "raw": "https://test.us.kjchmc.cn/images/4.png",
+        "post": [
+            {
+                "id": "1",
+                "name": "贴吧001",
+                "link": "https://test.us.kjchmc.cn/images/tieba/1.png"
+            },
+            {
+                "id": "2",
+                "name": "贴吧002",
+                "link": "https://test.us.kjchmc.cn/images/tieba/2.png"
+            },
+            {
+                "id": "3",
+                "name": "贴吧003",
+                "link": "https://test.us.kjchmc.cn/images/tieba/3.png"
+            },
+            {
+                "id": "4",
+                "name": "贴吧004",
+                "link": "https://test.us.kjchmc.cn/images/tieba/4.png"
+            },
+            {
+                "id": "5",
+                "name": "贴吧005",
+                "link": "https://test.us.kjchmc.cn/images/tieba/5.png"
+            },
+            {
+                "id": "6",
+                "name": "贴吧006",
+                "link": "https://test.us.kjchmc.cn/images/tieba/6.png"
+            },
+            {
+                "id": "7",
+                "name": "贴吧007",
+                "link": "https://test.us.kjchmc.cn/images/tieba/7.png"
+            },
+            {
+                "id": "8",
+                "name": "贴吧008",
+                "link": "https://test.us.kjchmc.cn/images/tieba/8.png"
+            }
+        ]
+    }
+}
+]
