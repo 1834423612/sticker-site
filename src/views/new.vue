@@ -77,7 +77,7 @@ import { router } from '../router/index'; // 根据你的项目结构，导入 V
   };
   </script>
   
-  <style>
+  <!-- <style>
   .app {
     max-width: 800px;
     margin: 0 auto;
@@ -161,5 +161,5 @@ import { router } from '../router/index'; // 根据你的项目结构，导入 V
     cursor: pointer;
     margin-top: 20px;
   }
-  </style>
+  </style> -->
   

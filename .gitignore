@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 /设计图生成
-.dev
 
 # Editor directories and files
 .vscode/*
@@ -25,3 +24,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/.dev

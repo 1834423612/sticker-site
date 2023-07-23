@@ -44,7 +44,7 @@
   };
   </script>
   
-  <style>
+  <!-- <style>
   .emoji-details-page {
     max-width: 800px;
     margin: 0 auto;
@@ -92,5 +92,5 @@
     border: none;
     cursor: pointer;
   }
-  </style>
+  </style> -->
   

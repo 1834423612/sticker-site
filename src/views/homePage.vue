@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div class="homePage">
     <h1>test测试标题</h1>
     <div class="search_box">
@@ -33,9 +34,9 @@
         <!-- 图片 -->
         <el-image
           class="list_img"
-          :src="getImageUrl(item.attributes.cover)"
+          :src="getImageUrl(item)"
           :alt="item.attributes.name"
-          :preview-src-list="[getImageUrl(item.attributes.cover)]"
+          :preview-src-list="[getImageUrl(item)]"
         />
         <!-- 标题 -->
         <span class="list_span">{{ item.attributes.name }}</span>
@@ -60,7 +61,7 @@ const title = ref("");
 onMounted(() => {
   // 初始化数据
   axios
-    .get("https://sapi.kjchmc.cn/api/collections?populate=cover")
+    .get("https://sapi.kjchmc.cn/api/collections?populate=cover&populate=emojis")
     .then((response) => {
       constList.value = response.data.data;
       list.value = constList.value;
@@ -77,7 +78,7 @@ const searchList = () => {
     // 按标题搜索数据
     for (var key in constList.value) {
       if (constList.value[key].attributes.name === title.value) {
-        list.value = constList.value[key].post;
+        list.value = constList.value[key].emojis.data;
       }
     }
     list.value = list.value.filter((item) =>
@@ -91,7 +92,11 @@ const showMore = (row) => {
   axios
     .get(`https://sapi.kjchmc.cn/api/emojis?populate=singleEmoji`)
     .then((response) => {
-      list.value = response.data.data;
+      const emojis = response.data.data;
+      const filteredEmojis = emojis.filter((emoji) =>
+        row.attributes.emojis.data.some((e) => e.id === emoji.id)
+      );
+      list.value = filteredEmojis;
       title.value = row.attributes.name;
     });
 };
@@ -103,15 +108,29 @@ const goBack = () => {
   list.value = constList.value;
 };
 
-const getImageUrl = (cover) => {
-  if (cover && cover.data && cover.data.attributes) {
-    const { url } = cover.data.attributes.formats.thumbnail;
+// 全局变量(.env) IMG_CDN_URL=https://sapi.kjchmc.cn
+// 修改为 ${process.env.IMG_CDN_URL}${url}
+const getImageUrl = (item) => {
+  if (item.attributes.singleEmoji && item.attributes.singleEmoji.data && item.attributes.singleEmoji.data.attributes) {
+    const { url } = item.attributes.singleEmoji.data.attributes.formats.thumbnail;
+    return `https://sapi.kjchmc.cn${url}`;
+  } else if (item.attributes.cover && item.attributes.cover.data && item.attributes.cover.data.attributes) {
+    const { url } = item.attributes.cover.data.attributes;
     return `https://sapi.kjchmc.cn${url}`;
   }
   return "";
 };
 </script>
 
+<script>
+import Header from './header.vue'
+
+export default {
+  components: {
+    Header,
+  },
+};
+</script>
 
 <style scoped>
 /* 标题样式 */
@@ -129,6 +148,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #FFF4E3;
 }
 
 /* 搜索框样式 */
@@ -171,6 +191,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  background-color: #FFFFFF;
 }
 
 /* 图片列表项样式 */
