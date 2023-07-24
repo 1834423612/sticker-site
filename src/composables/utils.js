@@ -1,5 +1,5 @@
-import pinia from "~/store/store";
-import { useAppStore } from "~/store/useAppStore";
+import pinia from "@/store/store";
+import { useAppStore } from "@/store/useAppStore";
 const store = useAppStore(pinia);
 
 
@@ -15,6 +15,9 @@ export function handleCopy(text) {
     document.execCommand("copy");
     document.getElementById("_copy_input").remove();
 }
+
+
+
 
 
 
