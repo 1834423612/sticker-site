@@ -50,7 +50,6 @@
         </div>
 
         <!-- 相关信息 -->
-
         <span class="about" v-show="!itemList.length"
           ><a href="https://space.bilibili.com/96466254" target="_blank"
             >@胡桃的精通沙</a
@@ -103,17 +102,12 @@ export default {
 
   data() {
     return {
-      dialogVisible: {
-        DialogVisible_input: false, //导入json
-      },
-
       apiData: [], //从json文件读得数据
 
       itemList: [], // 展示分区数据；展示搜索结果
 
       list_num: "", //【分区】选择的是哪个
 
-      character_history_list: [], //角色查询历史
       character_select: "", //当前选择角色
 
       searchVal: "", //输入关键字
@@ -136,27 +130,6 @@ export default {
       this.itemList = arr;
       if (this.itemList.length) {
         if (add) this.add_charactor_search(val); //添加至查询历史列表
-      }
-    },
-
-    // 处理角色查询
-    add_charactor_search(name) {
-      // 1、添加至character_history_list
-      if (this.character_history_list.length) {
-        if (this.character_history_list.indexOf(name) == -1) {
-          this.character_history_list.unshift(name);
-        } else {
-          // 2、判断当前查询的角色，是否已经存在，若已经存在，则提前
-          for (var i = 0; i < this.character_history_list.length; i++) {
-            if (this.character_history_list[i] === name) {
-              this.character_history_list.splice(i, 1);
-              break;
-            }
-          }
-          this.character_history_list.unshift(name);
-        }
-      } else {
-        this.character_history_list.push(name); //在末尾添加
       }
     },
 
@@ -314,16 +287,6 @@ export default {
       handler() {
         this.itemList = this.apiData[this.list_num].list;
         // console.log('itemList', this.itemList);
-      },
-    },
-
-    // 历史角色选择
-    character_select: {
-      deep: true,
-      handler(value) {
-        // this.searchVal = this.character_history_list[value]
-        this.searchVal = "";
-        this.item_search(this.character_history_list[value], false);
       },
     },
   },
