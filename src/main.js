@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import Pinia from './store/store'
 import './style.css'
 import App from './App.vue'
 import router from './router'
@@ -18,6 +19,10 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(faUserSecret)
 
-createApp(App).use(ElementPlus, {
-    locale: zhCn,
-}).use(router).mount('#app')
+const app = createApp(App)
+app.use(Pinia)
+app.use(ElementPlus, {
+  locale: zhCn,
+})
+app.use(router)
+app.mount('#app')

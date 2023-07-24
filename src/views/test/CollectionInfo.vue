@@ -162,7 +162,7 @@ const download = (row) => {
   
 <style>
 /* 引入自定义滚动条 */
-@import "../assets/css/scrollbar.css";
+@import "@/components/css/scrollbar.css";
 /* 引入 FontAwasome V6.4.0 图标 */
 @import url("https://use.fontawesome.com/releases/v6.4.0/css/all.css");
 

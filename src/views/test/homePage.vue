@@ -123,7 +123,7 @@ const getImageUrl = (item) => {
 </script>
 
 <script>
-import Header from './header.vue'
+import Header from '@/components/Header.vue'
 
 export default {
   components: {

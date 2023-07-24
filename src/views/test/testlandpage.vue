@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import Header from './header.vue';
-import Footer from './Footer.vue';
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
     components: {
@@ -50,7 +50,7 @@ export default {
 
 <style>
 /* 引入自定义滚动条 */
-@import "../assets/css/scrollbar.css";
+@import "@/components/css/scrollbar.css";
 
 body {
     margin: 0;

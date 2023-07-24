@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import LoadingPage from "../views/loading.vue";
-import homePage from "../views/homePage.vue";
+import LoadingPage from "../views/test/loading.vue";
+import homePage from "../views/test/homePage.vue";
 import AllhomePage from "../views/allhomePage.vue";
-import newPage from "../views/new.vue";
+import newPage from "../views/test/new.vue";
 import newIn from "../views/new-in.vue";
 import testIndex from '../views/index.vue';
-import TestLandPage from '../views/testlandpage.vue';
+import TestLandPage from '../views/test/testlandpage.vue';
 import CollectionDetails from '../views/CollectionDetails.vue';
 // import CollectionInfo from '../views/CollectionInfo.vue';
 
