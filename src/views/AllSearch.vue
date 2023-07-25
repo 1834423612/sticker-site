@@ -108,8 +108,6 @@ export default {
 
       list_num: "", //【分区】选择的是哪个
 
-      character_select: "", //当前选择角色
-
       searchVal: "", //输入关键字
     };
   },
@@ -255,11 +253,7 @@ export default {
     // fetchEmojyApiData() {
     //   let url = "https://bbs-api.mihoyo.com/misc/api/emoticon_set";
     //   axios
-    //     .get(url, {
-    //       headers: {
-    //         Accept: "application/json",
-    //       },
-    //     })
+    //     .get(url)
     //     .then(function (response) {
     //       console.log("response----", response);
     //       //   console.log("response----", response.data);
@@ -446,27 +440,38 @@ const debounce = (function () {
 //   background-color: rgb(238, 63, 78);
 // }
 
-/* 宽度自适应 */
-@media screen and (max-width: 1300px) {
-  .main {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
 @media screen and (max-width: 1137px) {
-  .about {
+  .el-header .about {
     display: none;
   }
 }
 
+/* 宽度自适应 */
+@media screen and (max-width: 1350px) {
+  .el-main .main {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+@media screen and (max-width: 1200px) {
+  .el-main .main {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
 @media screen and (max-width: 1000px) {
-  .main {
+  .el-main .main {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
+@media screen and (max-width: 850px) {
+  .el-main .main {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media screen and (max-width: 700px) {
-  .main {
+  .el-main .main {
     grid-template-columns: repeat(3, 1fr);
   }
 }
