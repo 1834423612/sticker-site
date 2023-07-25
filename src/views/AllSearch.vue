@@ -308,6 +308,9 @@ const debounce = (function () {
 </script>
 
 <style lang="scss">
+/* 引入自定义滚动条 */
+@import "@/components/css/scrollbar.css";
+
 * {
   margin: 0;
   padding: 0;
@@ -438,10 +441,10 @@ const debounce = (function () {
 }
 
 /*  改变滚动条的内容 */
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: rgb(238, 63, 78);
-}
+// ::-webkit-scrollbar-thumb {
+//   border-radius: 10px;
+//   background-color: rgb(238, 63, 78);
+// }
 
 /* 宽度自适应 */
 @media screen and (max-width: 1300px) {
