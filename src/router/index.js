@@ -9,7 +9,7 @@ import testIndex from '../views/index.vue';
 import TestLandPage from '../views/test/testlandpage.vue';
 import CollectionDetails from '../views/CollectionDetails.vue';
 // import CollectionInfo from '../views/CollectionInfo.vue';
-import AllSearch from '../views/AllSearch.vue'
+import AllSearch from '../views/AllSearch.vue';
 
 
 const routes = [

@@ -12,21 +12,25 @@
                             <el-breadcrumb-item>全部合集</el-breadcrumb-item>
                             <el-breadcrumb-item>{{ title }}</el-breadcrumb-item>
                         </el-breadcrumb>
+
+
                         <div id="collection-info" class="title-section">
-                            <h1 class="collection-title">{{ title }}</h1>
-                            <!-- 用户头像和用户名 -->
-                            <div class="user-info">
-                                <img src="https://sapi.kjchmc.cn/uploads/thumbnail_a98919993681d_4fb779faeb.jpg" alt="用户头像"
-                                    class="user-avatar" />
-                                <span class="user-name">用户名123</span>
+                            <div class="collection-icon">
+                                <img src="https://sapi.kjchmc.cn/uploads/photo_2023_07_15_18_45_22_d10331920d.jpg" />
                             </div>
-                        </div>
-                        <div class="collection-icon">
-                            <img src="https://sapi.kjchmc.cn/uploads/photo_2023_07_15_18_45_22_d10331920d.jpg" />
+
+                            <div class="collection-details">
+                                <h1 class="collection-title">{{ title }}</h1>
+                                <!-- 用户头像和用户名 -->
+                                <div class="user-info">
+                                    <img src="https://sapi.kjchmc.cn/uploads/thumbnail_a98919993681d_4fb779faeb.jpg"
+                                        alt="用户头像" class="user-avatar" />
+                                    <span class="user-name">用户名123</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="CollectionDetails-body">
@@ -187,9 +191,9 @@ const download = (row) => {
 @import url("https://use.fontawesome.com/releases/v6.4.0/css/all.css");
 
 body {
-    /* background-color: #fff4e3; */
-    /* background-color: rgb(153, 212, 207);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%23314661' fill-opacity='0.4'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E"); */
+    background-color: #fff4e3;
+    /* background-color: rgb(153, 212, 207); */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%23bda47d' fill-opacity='0.4'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .mainBody {
@@ -234,14 +238,26 @@ body {
 } */
 
 
+/* 新增样式：设置堆叠顺序，让.title-section和.CollectionDetails-body在前面 */
+.title-section,
+.CollectionDetails-body {
+  position: relative;
+  /* 设置较高的z-index值 */
+  z-index: 1;
+}
+
 
 #collection-info.title-section {
-    position: absolute;
-    /* 修改标题位置为页面靠左，可根据需要调整左侧距离 */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     margin-top: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    /* 设置大卡片长宽 */
+    height: 50%;
+    width: 85.5%;
+    background-color: cornflowerblue;
 }
 
 #collection-info .collection-title {
@@ -253,29 +269,26 @@ body {
 }
 
 .bg-container {
-    display: flex;
-    align-items: stretch;
-    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
     margin-top: 4rem;
     margin-left: 10%;
     white-space: nowrap;
-}
-
-.title-section {
     display: flex;
-    align-items: flex-start;
     flex-direction: column;
 }
 
+.collection-details {
+    margin-left: 15px;
+}
+
 .collection-icon {
-    display: flex;
-    margin-top: 2.5rem;
-    position: absolute;
-    right: 10%;
+    /* 新增样式：调整collection-icon距离页面右侧10px */
+    margin-right: 10px;
 }
 
 .collection-icon img {
-    width: 100px;
+    width: 120px;
     height: auto;
 }
 
@@ -303,31 +316,11 @@ body {
     margin-left: 3px;
 }
 
-
-
-
-#collectionDetails>>>.el-breadcrumb__item {
-    /* 添加一些顶部间距，使其位于标题上方 */
-    /* margin-top: 100px; */
-    /* padding: 30px 20px 20px 50px; */
-    color: #FFFFFF !important;
+.el-breadcrumb {
+    font-size: 14px;
+    line-height: 1;
+    padding-bottom: 10px;
 }
-
-#collectionDetails>>>.el-breadcrumb__inner {
-    color: #FFFFFF !important;
-}
-
-#collectionDetails>>>.el-breadcrumb__separator {
-    color: #FFFFFF !important;
-}
-
-#collectionDetails>>>.el-breadcrumb__item:last-child .el-breadcrumb__inner,
-.el-breadcrumb__item:last-child .el-breadcrumb__inner a,
-.el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover,
-.el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
-    color: #FFFFFF !important;
-}
-
 
 .CollectionDetails-body {
     position: relative;
