@@ -160,7 +160,7 @@ const download = (row) => {
 };
 </script>
   
-<style>
+<style scoped>
 /* 引入自定义滚动条 */
 @import "@/components/css/scrollbar.css";
 /* 引入 FontAwasome V6.4.0 图标 */

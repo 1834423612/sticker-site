@@ -301,7 +301,7 @@ const debounce = (function () {
 })();
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* 引入自定义滚动条 */
 @import "@/components/css/scrollbar.css";
 

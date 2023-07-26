@@ -48,7 +48,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 /* 引入自定义滚动条 */
 @import "@/components/css/scrollbar.css";
 
