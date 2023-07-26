@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <el-container>
       <el-header>
         <span class="back-arrow" style="" @click="$router.push('/')">
@@ -305,7 +305,7 @@ const debounce = (function () {
 /* 引入自定义滚动条 */
 @import "@/components/css/scrollbar.css";
 
-* {
+el-container {
   margin: 0;
   padding: 0;
 }
@@ -313,6 +313,7 @@ const debounce = (function () {
 #app {
   overflow: scroll;
   overflow-x: hidden;
+  background-color: #fff4e3;
 }
 
 .el-header {

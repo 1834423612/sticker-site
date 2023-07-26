@@ -199,6 +199,7 @@ body {
 .mainBody {
     height: 100vh;
     overflow-y: scroll;
+    background-color: #fff4e3;
 }
 
 .CollectionDetails-header {
@@ -264,7 +265,7 @@ body {
     color: #FFFFFF;
     font-weight: normal;
     font-size: 300%;
-    line-height: 1.5;
+    line-height: 0.5;
     -webkit-line-clamp: 3;
 }
 

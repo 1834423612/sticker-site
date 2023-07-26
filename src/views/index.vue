@@ -221,13 +221,10 @@ export default {
 /* 引入 FontAwasome V6.4.0 图标 */
 @import url("https://use.fontawesome.com/releases/v6.4.0/css/all.css");
 
-body {
-    background-color: #fff4e3;
-}
-
 .mainBody {
     height: 100vh;
     overflow-y: scroll;
+    background-color: #fff4e3;
 }
 
 main {
