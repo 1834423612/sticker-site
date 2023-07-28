@@ -20,6 +20,7 @@
     "gasp": "^0.0.2",
     "gsap": "^3.12.2",
     "headroom.js": "^0.12.0",
+    "jquery": "^3.7.0",
     "jszip": "^3.10.1",
     "pinia": "^2.1.4",
     "pinia-plugin-persist": "^1.0.0",
