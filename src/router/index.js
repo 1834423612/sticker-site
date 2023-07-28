@@ -10,9 +10,14 @@ import TestLandPage from '../views/test/testlandpage.vue';
 import CollectionDetails from '../views/CollectionDetails.vue';
 // import CollectionInfo from '../views/CollectionInfo.vue';
 import AllSearch from '../views/AllSearch.vue';
+import Search from '../views/search.vue';
 
 
 const routes = [
+  {
+    path: '/',
+    component: AllhomePage,
+  },
   {
     path: '/test',
     name: 'homePage',
@@ -24,8 +29,9 @@ const routes = [
     component: AllSearch,
   },
   {
-    path: '/',
-    component: AllhomePage,
+    path: '/search',
+    name: 'Search',
+    component: Search,
   },
   {
     path: '/LoadingPage',
