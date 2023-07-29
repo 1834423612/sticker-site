@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import Pinia from './store/store'
+import pinia from '@/store/store'
 import './style.css'
 import App from './App.vue'
 import router from './router'
@@ -21,7 +21,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 library.add(faUserSecret)
 
 const app = createApp(App)
-app.use(Pinia)
+
 app.use(ElementPlus, {
   locale: zhCn,
 })
@@ -29,4 +29,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 app.use(router)
+app.use(pinia)
 app.mount('#app')
