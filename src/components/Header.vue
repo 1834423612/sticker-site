@@ -19,55 +19,138 @@
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
+
+      <!-- 分组 -->
+      <el-select v-model="list_num" placeholder="请选择分区" clearable>
+        <el-option v-for="(dataObj, index) in apiData" :key="dataObj.id + '+' + index" :label="dataObj.name"
+          :value="index" v-show="dataObj.is_available">
+          <span>{{ index }}.</span>
+          <span>{{ dataObj.name }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px">{{ dataObj.num }}枚</span>
+        </el-option>
+      </el-select>
+
     </div>
     <!-- <el-button @click="changeLanguage('zh-CN')">中文</el-button>
       <el-button @click="changeLanguage('en')">English</el-button>
       <el-button @click="changeLanguage('ja')">日本語</el-button> -->
   </header>
 </template>
-  
-  <style scoped>
-  /* 固定式顶栏布局 */
-  .affix-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 55px;
-    /* border-radius: 4px; */
-    background-color: #454D5C;
-    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/ /* 添加阴影效果 */
-    padding: 0 50px; /* 内容距离页面边距距离 */
-    box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
-  }
-  
-  .logo {
-    height: 56px;
-    image-rendering: pixelated;
-  }
 
-  .title {
-    color: #FFFFFF;
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-right: 20px; /* 将 logo 右边距离设置为 20px */
-    margin-left: 10px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end; /* 将 li 右对齐 */
-    flex-grow: 1; /* 让 ul 占满剩余空间 */
-  }
-  
-  li {
-    margin-right: 10px;
-  }
-  
-  a {
-    color: #FFFFFF;
-    text-decoration: none;
-  }
-  </style>
+
+<script>
+//通过json文件路径引入
+import jsonData from "../views/search/API.json";
+
+export default {
+  name: "App",
+  components: {},
+
+  data() {
+    return {
+      apiData: [], //从json文件读得数据
+
+      itemList: [], // 展示分区数据；展示搜索结果
+
+      list_num: "", //【分区】选择的是哪个
+
+      searchVal: "", //输入关键字
+    };
+  },
+  methods: {
+    // 清空搜索结果
+    clearSearch() {
+      this.searchVal = '';
+    },
+  },
+  // 搜索
+  searchVal(val) {
+      debounce(() => {
+        if (val && val !== " ") {
+          // console.log('开始查找');
+          this.item_search(val);
+        } else {
+          // 清除关键字后 也清除搜索结果
+          this.itemList = "";
+        }
+      }, 300);
+    },
+
+    // 分区选择
+    list_num: {
+      deep: true,
+      handler() {
+        this.itemList = this.apiData[this.list_num].list;
+        // console.log('itemList', this.itemList);
+      },
+    },
+  created() {},
+
+  mounted() {
+    this.apiData = jsonData.data.list; //读取API.json
+  },
+};
+
+// 用于搜索延时 去除卡顿
+const debounce = (function () {
+  let timer = 0;
+  return function (func, delay) {
+    clearTimeout(timer);
+    timer = setTimeout(func, delay);
+  };
+})();
+</script>
+
+
+<style scoped>
+/* 固定式顶栏布局 */
+.affix-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 55px;
+  /* border-radius: 4px; */
+  background-color: #454D5C;
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+  /* 添加阴影效果 */
+  padding: 0 50px;
+  /* 内容距离页面边距距离 */
+  box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+  height: 56px;
+  image-rendering: pixelated;
+}
+
+.title {
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-right: 20px;
+  /* 将 logo 右边距离设置为 20px */
+  margin-left: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+li {
+  margin-right: 10px;
+}
+
+a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #578deb;
+}
+</style>
   
