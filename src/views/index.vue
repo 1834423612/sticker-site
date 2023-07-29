@@ -32,10 +32,14 @@
                         @click="goToCollectionDetails(collection)">
                         <img :src="getFullImageUrl(collection.attributes.cover.data.attributes.url)" alt="合集封面"
                             class="collection-cover" ref="collectionCover" />
-                        <!-- 彩色标签 - 使用 v-if 判断是否隐藏 -->
-                        <div v-if="collection.attributes.tag" class="tags">
-                            <i class="fas fa-hashtag"></i>
-                            <span class="tag-text">{{ collection.attributes.tag }}</span>
+                        <!-- 彩色标签 - 使用 v-if 判断是否隐藏(检测tags是否大于0) -->
+                        <div v-if="collection.attributes.tags.data.length > 0" class="tags">
+                            <template v-for="tag in collection.attributes.tags.data">
+                                <span class="tag-text">
+                                    <i class="fas fa-hashtag" id="tag-icon"></i>
+                                    {{ tag.attributes.name }}
+                                </span>
+                            </template>
                         </div>
                         <h3 class="collection-name">{{ collection.attributes.name }}</h3>
                         <div class="collection-describe">
@@ -77,7 +81,6 @@
         </div>
         <Footer />
     </div>
-    
 </template>
   
 <script>
@@ -118,7 +121,7 @@ export default {
         },
         async fetchCollections() {
             try {
-                const response = await fetch('https://sapi.kjchmc.cn/api/collections?populate=cover&populate=emojis');
+                const response = await fetch('https://sapi.kjchmc.cn/api/collections?populate=cover&populate=emojis.singleEmoji&populate=tags');
                 const data = await response.json();
                 this.collections = data.data;
             } catch (error) {
@@ -145,6 +148,9 @@ export default {
         getRandomCollections() {
             const shuffledCollections = this.shuffleArray(this.collections);
             return shuffledCollections.slice(0, 6);
+        },
+        getTagsString(tagsData) {
+            return tagsData.map(tag => tag.attributes.name).join(', ');
         },
         goToEmojiDetails(emoji) {
             this.$router.push({ name: 'newIn', params: { id: emoji.id } });
@@ -370,19 +376,28 @@ main {
 /* 彩色标签样式 */
 .tags {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     color: #ff6000;
-    /*#4285f4*/
     font-size: 16px;
     margin-top: 5%;
     margin-left: 2%;
-    /* margin-bottom: 10px; */
 }
 
 .tag-text {
-    margin-left: 3px;
-    /* color: #4285f4; */
+    display: flex;
+    align-items: center;
+    /* 防止文本换行 */
+    white-space: nowrap;
+    /* 添加图标和文本之间的间距 */
+    margin-right: 10px;
 }
+
+.tag-text i {
+    /* 调整图标与文本之间的间距 */
+    margin-right: 3px;
+}
+
 
 .bottom-items {
     /* position: absolute;
