@@ -1,13 +1,13 @@
 <template>
+    <Header />
     <div id="app">
-        <Header />
-        <div class="CollectionDetails-header">
+        <div class="search-header">
             <div class="bg">
                 <div class="bg-title">
                     <h1>test Title</h1>
                 </div>
                 <div class="bg-container">
-                    <div id="collection-info" class="title-section">
+                    <div class="title-section">
                         <!-- 搜索框 -->
                         <div class="search-form-div">
                             <form class="search-form" action="https://example.com" method="get">
@@ -28,14 +28,13 @@
                                                 {{ item.label }}
                                             </li>
                                         </ul>
-
                                     </div>
 
                                     <div class="txt">
                                         <!-- 输入框内容, 记录并传参?s=xxx -->
                                         <input type="text" autocomplete="off" class="s placeholder txt_empty" name="s"
-                                            :value="input" @input="input = $event.target.value"
-                                            :placeholder="'按Enter回车搜索'" data-init="done" />
+                                            :value="input" @input="input = $event.target.value" :placeholder="'按Enter回车搜索'"
+                                            data-init="done" />
                                         <span class="ico-ji"></span>
                                     </div>
                                     <div class="btns">
@@ -49,6 +48,15 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="search-content">
+                <div class="container">
+                    <div class="search-title">
+                        <strong>搜索结果</strong>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -67,8 +75,8 @@ const selectsVisible = ref(false);
 
 // 定义选项数据的数组
 const options = [
-    { value: 'all', label: '全部' },
-    { value: 'post1', label: '分类1' },
+    { value: 'official', label: '官方' },
+    { value: 'post1', label: '合集' },
     { value: 'post2', label: '分类2' },
     { value: 'post3', label: '分类3' },
 ];
@@ -76,7 +84,7 @@ const options = [
 // 添加计算属性 selectedLabel
 const selectedLabel = computed(() => {
     const option = options.find((opt) => opt.value === select.value);
-    return option ? option.label : '全部';
+    return option ? option.label : '官方';
 });
 
 function toggleSelects() {
@@ -118,9 +126,10 @@ onMounted(() => {
 
 <script>
 export default {
+    name: "App",
     components: {
         Header,
-    },
+    }
 };
 </script>
 
@@ -140,7 +149,12 @@ export default {
     background-color: #fff4e3;
 }
 
-.CollectionDetails-header {
+// h1 {
+//     font-size: 3.2em;
+//     line-height: 0;
+// }
+
+.search-header {
     position: relative;
     height: 35%;
 }
@@ -161,26 +175,12 @@ export default {
 .bg-title {
     padding: 20px;
     color: #FFFFFF;
-}
-
-.bg-title h1 {
-    font-size: 3.2em;
-    line-height: 0;
-    font-family: 'ZhuZiAWanCN', sans-serif;
+    font-weight: bold;
     /* 使用自定义字体，如果字体加载失败，回退到系统默认字体 */
+    font-family: 'ZhuZiAWanCN', sans-serif;
 }
 
-
-/* 新增样式：设置堆叠顺序，让.title-section和.CollectionDetails-body在前面 */
-.title-section,
-.CollectionDetails-body {
-    position: relative;
-    /* 设置较高的z-index值 */
-    z-index: 1;
-}
-
-
-#collection-info.title-section {
+.title-section {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -193,14 +193,6 @@ export default {
     background-color: rgb(255 255 255 / 20%);
 }
 
-#collection-info .collection-title {
-    color: #FFFFFF;
-    font-weight: normal;
-    font-size: 300%;
-    line-height: 0.5;
-    -webkit-line-clamp: 3;
-}
-
 .bg-container {
     width: 60%;
     // height: 100%;
@@ -209,41 +201,6 @@ export default {
     display: flex;
     flex-direction: column;
 }
-
-.collection-details {
-    margin-left: 15px;
-}
-
-.collection-icon {
-    /* 新增样式：调整collection-icon距离页面右侧10px */
-    margin-right: 10px;
-}
-
-.collection-icon img {
-    width: 120px;
-    height: auto;
-}
-
-.search-bar {
-    text-align: left;
-    width: 50%;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-/* 使用 Flex 布局将内容在一行内显示 */
-.search-input-prepend {
-    display: flex;
-    align-items: center;
-}
-
-/* 调整样式使得 select 和按钮之间有一些间距 */
-.el-select {
-    margin-right: 10px;
-}
-
-
-
 
 .search-form-div {
     // padding: 0 150px;
@@ -267,6 +224,7 @@ export default {
     padding-right: 20px
 }
 
+// 分类菜单右侧隔离竖杠
 .search-form-div .search-form-wrap .selects:after {
     content: "";
     display: block;
@@ -286,6 +244,7 @@ export default {
     top: 80%
 }
 
+// 分类菜单下拉后样式
 .search-form-div .search-form-wrap .selects .selects-ul {
     position: absolute;
     left: -22px;
@@ -303,6 +262,7 @@ export default {
     transition: all .2s;
 }
 
+// 分类列表样式
 .search-form-div .search-form-wrap .selects .select-title {
     font-size: 14px;
     color: #8f8f8f;
@@ -359,6 +319,7 @@ export default {
     cursor: pointer
 }
 
+// 下拉菜单被选择文字高亮提示
 .search-form-div .search-form-wrap .selects .selects-ul li.current,
 .search-form-div .search-form-wrap .selects .selects-ul li:hover {
     color: #3385ff
@@ -375,7 +336,7 @@ export default {
     padding: 17px 0;
     line-height: 20px;
     font-size: 14px;
-    color: #8f8f8f;
+    color: rgb(143 143 143 / 50%);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -455,36 +416,29 @@ input {
 
 
 
-.el-breadcrumb {
-    font-size: 14px;
-    line-height: 1;
-    padding-bottom: 10px;
+.search-content {
+    position: relative;
+    background: none;
+    height: 600px;
 }
 
-.input-with-select .el-input-group__prepend {
-    background-color: var(--el-fill-color-blank);
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0 8%;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-title {
+    width: auto;
+    height: fit-content;
+    font-size: 20px;
+    padding: 3rem 0;
 }
 
 
-/* 在屏幕宽度小于768px时，每行显示2个卡片 */
-@media (max-width: 768px) {
-    .Emoji-card {
-        flex-basis: calc(50% - 20px);
-    }
 
-    .Emoji-card:not(:nth-child(1n)) {
-        margin-right: 5%;
-    }
-}
-
-/* 在屏幕宽度小于576px时，每行显示1个卡片 */
-@media (max-width: 576px) {
-    .Emoji-card {
-        flex-basis: calc(100% - 20px);
-    }
-
-    .Emoji-card:not(:nth-child(n)) {
-        margin-right: 5%;
-    }
-}
 </style>
