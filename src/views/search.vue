@@ -19,8 +19,11 @@
                     @click="toggleSelects"
                     :class="{ show: selectsVisible }"
                   >
-                    <!-- 将分类数据写入传参 -->
-                    <input type="hidden" name="source" :value="select" />
+                    <input
+                      type="hidden"
+                      name="source"
+                      :value="selectedOption.value"
+                    />
                     <h3
                       class="select-title"
                       style="cursor: pointer"
@@ -37,9 +40,10 @@
                       <li
                         v-for="item in options"
                         :key="item.value"
-                        @click.stop="handleSelect(item.value)"
-                        :class="{ current: select === item.value }"
-                        :data-source="item.value"
+                        @click.stop="handleSelect(item)"
+                        :class="{
+                          current: selectedOption.value === item.value,
+                        }"
                       >
                         {{ item.label }}
                       </li>
@@ -88,10 +92,10 @@
 
 <script setup>
 import Header from "@/components/Header.vue";
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import SearchResult from "@/views/SearchResult.vue";
+import { ref, onBeforeMount, onMounted, onUnmounted, computed, watchEffect, watch } from "vue";
 import $ from "jquery";
 import { Search } from "@element-plus/icons-vue";
-import SearchResult from "@/views/SearchResult.vue";
 
 import { useAppStore } from "@/store/useAppStore";
 const appStore = useAppStore();
@@ -101,6 +105,28 @@ const searchVal = ref(""); //输入搜索关键字  默认搜索整个API内容
 const select = ref("all");
 const selectsVisible = ref(false);
 
+// 从localStorage中读取保存的搜索分区选项值
+const selectedOption = ref(localStorage.getItem("selectedOption") || "official");
+
+// 设置初始值，在组件首次渲染前从localStorage中读取保存的选项值
+onBeforeMount(() => {
+  const savedOption = localStorage.getItem("selectedOption");
+  if (savedOption && options.some((item) => item.value === savedOption)) {
+    selectedOption.value = savedOption;
+  }
+});
+
+// 监听选项值变化，保存到localStorage中
+watch(selectedOption, (newValue) => {
+  localStorage.setItem("selectedOption", newValue);
+});
+
+// 添加计算属性 selectedLabel
+const selectedLabel = computed(() => {
+  const option = options.find((opt) => opt.value === selectedOption.value);
+  return option ? option.label : "官方";
+});
+
 // 定义选项数据的数组
 const options = [
   { value: "official", label: "官方" },
@@ -109,25 +135,48 @@ const options = [
   { value: "post3", label: "分类3" },
 ];
 
-// 添加计算属性 selectedLabel
-const selectedLabel = computed(() => {
-  const option = options.find((opt) => opt.value === select.value);
-  return option ? option.label : "官方";
-});
-
 function toggleSelects() {
   selectsVisible.value = !selectsVisible.value;
 }
 
 function handleSelect(item) {
   // 处理选项选择逻辑
-  select.value = item;
+  selectedOption.value = item.value;
   // 选项被选择后，隐藏选项列表
   selectsVisible.value = false;
+
+  // 手动调用一次watchEffect，确保localStorage中的值被及时更新
+  watchEffect(() => {
+    localStorage.setItem("selectedOption", selectedOption.value);
+  });
 }
+
 
 function hideSelects() {
   selectsVisible.value = false;
+}
+
+// 获取cookie
+function getCookie(name) {
+  var matches = document.cookie.match(
+    new RegExp(
+      "(?:^|; )" +
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+        "=([^;]*)"
+    )
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+// 设置cookie
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
 // 搜索
@@ -148,6 +197,16 @@ function item_search(val) {
 
 // 监听点击事件，用于在点击列表外部时关闭下拉选项列表
 onMounted(() => {
+  // 从Cookie中读取保存的选项
+  const savedOption = getCookie("selectedOption");
+  // 如果cookie中有选项设置，则使用它
+  if (savedOption && options.some((item) => item.value === savedOption)) {
+    selectedOption.value = savedOption;
+  } else {
+    // 否则，默认使用官方选项
+    selectedOption.value = "official";
+  }
+
   const handleClickOutside = (event) => {
     const target = event.target;
     const selectsElement = document.querySelector(".selects");
@@ -167,7 +226,6 @@ onMounted(() => {
 });
 </script>
 
-
 <script>
 export default {
   name: "App",
@@ -177,9 +235,7 @@ export default {
 };
 </script>
 
-
-
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 /* 引入自定义滚动条 */
 @import "@/components/css/scrollbar.css";
 /* 引入自定义字体 ZhuZiAWan */
@@ -285,6 +341,7 @@ export default {
   visibility: visible;
   opacity: 1;
   top: 80%;
+  z-index: 1;
 }
 
 // 分类菜单下拉后样式
