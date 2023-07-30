@@ -93,7 +93,7 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import SearchResult from "@/views/SearchResult.vue";
-import { ref, onBeforeMount, onMounted, onUnmounted, computed, watchEffect, watch } from "vue";
+import { ref, onMounted, onUnmounted, computed, watchEffect, watch } from "vue";
 import $ from "jquery";
 import { Search } from "@element-plus/icons-vue";
 
@@ -105,27 +105,8 @@ const searchVal = ref(""); //输入搜索关键字  默认搜索整个API内容
 const select = ref("all");
 const selectsVisible = ref(false);
 
-// 从localStorage中读取保存的搜索分区选项值
-const selectedOption = ref(localStorage.getItem("selectedOption") || "official");
-
-// 设置初始值，在组件首次渲染前从localStorage中读取保存的选项值
-onBeforeMount(() => {
-  const savedOption = localStorage.getItem("selectedOption");
-  if (savedOption && options.some((item) => item.value === savedOption)) {
-    selectedOption.value = savedOption;
-  }
-});
-
-// 监听选项值变化，保存到localStorage中
-watch(selectedOption, (newValue) => {
-  localStorage.setItem("selectedOption", newValue);
-});
-
-// 添加计算属性 selectedLabel
-const selectedLabel = computed(() => {
-  const option = options.find((opt) => opt.value === selectedOption.value);
-  return option ? option.label : "官方";
-});
+// 从Cookie中读取保存的搜索分区选项值
+const selectedOption = ref("official");
 
 // 定义选项数据的数组
 const options = [
@@ -135,26 +116,15 @@ const options = [
   { value: "post3", label: "分类3" },
 ];
 
-function toggleSelects() {
-  selectsVisible.value = !selectsVisible.value;
-}
-
-function handleSelect(item) {
-  // 处理选项选择逻辑
-  selectedOption.value = item.value;
-  // 选项被选择后，隐藏选项列表
-  selectsVisible.value = false;
-
-  // 手动调用一次watchEffect，确保localStorage中的值被及时更新
-  watchEffect(() => {
-    localStorage.setItem("selectedOption", selectedOption.value);
-  });
-}
-
-
-function hideSelects() {
-  selectsVisible.value = false;
-}
+// 添加计算属性 selectedLabel
+// 尝试从Cookie中获取保存的选项值
+const selectedLabel = computed(() => {
+  const option = options.find((opt) => opt.value === selectedOption.value);
+  const labelFromCookie = getCookie("selectedOption");
+  const selectedValue = labelFromCookie || selectedOption.value;
+  const optionWithLabel = options.find((opt) => opt.value === selectedValue);
+  return optionWithLabel ? optionWithLabel.label : "官方";
+});
 
 // 获取cookie
 function getCookie(name) {
@@ -179,6 +149,53 @@ function setCookie(name, value, days) {
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
+// 切换选项显示状态
+function toggleSelects() {
+  selectsVisible.value = !selectsVisible.value;
+}
+
+// 处理选项选择
+function handleSelect(item) {
+  // 选择逻辑
+  selectedOption.value = item.value; // 这里使用item.value
+  // 选项被选择后，隐藏选项列表
+  selectsVisible.value = false;
+}
+
+// 隐藏选项列表
+function hideSelects() {
+  selectsVisible.value = false;
+}
+
+// 监听selectedOption的变化，保存到Cookie中
+watch(selectedOption, (newValue) => {
+  setCookie("selectedOption", newValue, 365);
+});
+
+// 组件初始化时读取保存的cookie选项
+onMounted(() => {
+  const savedOption = getCookie("selectedOption");
+  if (savedOption && options.some((item) => item.value === savedOption)) {
+    selectedOption.value = savedOption;
+  } else {
+    selectedOption.value = "official";
+    setCookie("selectedOption", selectedOption.value, 365);
+  }
+
+// 点击外部逻辑 
+  const handleClickOutside = (event) => {
+    const target = event.target;
+    const selectsElement = document.querySelector(".selects");
+  };
+
+  document.addEventListener("click", handleClickOutside);
+
+  // 组件卸载时移除监听
+  onUnmounted(() => {
+    document.removeEventListener("click", handleClickOutside);
+  });
+});
+
 // 搜索
 function item_search(val) {
   let keyWord = val.toLowerCase();
@@ -194,36 +211,6 @@ function item_search(val) {
   }
   appStore.itemList = arr;
 }
-
-// 监听点击事件，用于在点击列表外部时关闭下拉选项列表
-onMounted(() => {
-  // 从Cookie中读取保存的选项
-  const savedOption = getCookie("selectedOption");
-  // 如果cookie中有选项设置，则使用它
-  if (savedOption && options.some((item) => item.value === savedOption)) {
-    selectedOption.value = savedOption;
-  } else {
-    // 否则，默认使用官方选项
-    selectedOption.value = "official";
-  }
-
-  const handleClickOutside = (event) => {
-    const target = event.target;
-    const selectsElement = document.querySelector(".selects");
-
-    // 判断点击的区域是否在下拉选项列表之外，并隐藏列表
-    if (selectsVisible.value && !selectsElement.contains(target)) {
-      hideSelects();
-    }
-  };
-
-  document.addEventListener("click", handleClickOutside);
-
-  // 组件卸载时移除监听
-  onUnmounted(() => {
-    document.removeEventListener("click", handleClickOutside);
-  });
-});
 </script>
 
 <script>
