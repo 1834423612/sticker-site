@@ -3,6 +3,7 @@
   <div id="app">
     <div class="search-header">
       <div class="bg">
+        <reload></reload>
         <!-- <div class="bg-title">
           <h1>test Title</h1>
         </div> -->
@@ -93,7 +94,8 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import SearchResult from "@/views/SearchResult.vue";
-import { ref, onMounted, onUnmounted, computed, watchEffect, watch } from "vue";
+import reload from "@/components/reload.vue";
+import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import $ from "jquery";
 import { Search } from "@element-plus/icons-vue";
 

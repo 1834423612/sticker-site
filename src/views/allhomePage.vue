@@ -19,6 +19,7 @@
       </el-button>
     </div>
     <div class="list_gruop">
+      <reload></reload>
       <el-empty
         style="margin: 0 auto"
         description="暂无数据"
@@ -43,6 +44,7 @@
 </template>
 
 <script setup>
+import reload from "@/components/reload.vue";
 import { ref, onMounted } from "vue";
 import { Search } from "@element-plus/icons-vue";
 
