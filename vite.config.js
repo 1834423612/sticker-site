@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import VueDevTools from 'vite-plugin-vue-devtools' // 导入 Vite DevTools 插件
 import { VitePWA } from 'vite-plugin-pwa' // 导入 Vite PWA 插件
 import path from 'path' // 导入 Node.js 的 path 模块
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    VueDevTools(),
     vue(),
     VitePWA({
       includeAssets: [
