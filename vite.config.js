@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import VueDevTools from 'vite-plugin-vue-devtools' // 导入 Vite DevTools 插件
 import { VitePWA } from 'vite-plugin-pwa' // 导入 Vite PWA 插件
 import path from 'path' // 导入 Node.js 的 path 模块
@@ -53,6 +56,12 @@ export default defineConfig({
           },
         ],
       },
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
     }),
   ],
 

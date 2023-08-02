@@ -23,6 +23,7 @@
     "node-sass": "^9.0.0",
     "pinia": "^2.1.6",
     "pinia-plugin-persist": "^1.0.0",
+    "qs": "^6.11.2",
     "sass": "^1.64.2",
     "sass-loader": "^13.3.2",
     "scss": "^0.2.4",
@@ -36,6 +37,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.1",
     "vite": "^4.4.5"
   }
 }
