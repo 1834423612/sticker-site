@@ -9,6 +9,8 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { registerSW } from 'virtual:pwa-register'
 import ReloadToast from '@/components/reload.vue'; // 导入 reload.vue 组件
+import Entrance from "entrance-vue" // 导入 注册登录验证 组件
+import { SmsClient } from 'sms-node-sdk' //导入 腾讯SMS SDK
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -53,6 +55,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 app.use(router)
 app.use(pinia)
+app.use(Entrance);
 app.mount('#app')
 
 
