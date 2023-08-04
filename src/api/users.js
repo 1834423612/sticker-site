@@ -8,3 +8,12 @@ export const login = (userInfo) => {
         data: userInfo,
     })
 }
+
+//  注册接口
+export const register = (userInfo) => {
+    return request({
+        method: 'POST',
+        url: '/auth/local/register',
+        data: userInfo,
+    })
+}

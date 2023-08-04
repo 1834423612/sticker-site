@@ -1,0 +1,22 @@
+{
+    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkxMDA2OTMwLCJleHAiOjE2OTM1OTg5MzB9.W2znZFE9XIMZjHbSJWmAR0aPusmqXAf8dIw1_nW_Ovk",
+    "user": {
+        "id": 2,
+        "username": "test1",
+        "email": "test1@123.com",
+        "provider": "local",
+        "confirmed": true,
+        "blocked": false,
+        "createdAt": "2023-08-02T20:08:50.419Z",
+        "updatedAt": "2023-08-02T20:08:50.419Z",
+        "nickname": null,
+        "role": {
+            "id": 1,
+            "name": "Authenticated",
+            "description": "Default role given to authenticated user.",
+            "type": "authenticated",
+            "createdAt": "2023-07-03T10:05:53.229Z",
+            "updatedAt": "2023-08-02T06:20:47.119Z"
+        }
+    }
+}
