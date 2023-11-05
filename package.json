@@ -18,7 +18,7 @@
     "element-plus": "^2.3.8",
     "entrance-vue": "^1.0.2",
     "file-saver": "^2.0.5",
-    "fzm": "^1.5.5",
+    "fzm": "^1.0.0",
     "gsap": "^3.12.2",
     "jquery": "^3.7.0",
     "jszip": "^3.10.1",
